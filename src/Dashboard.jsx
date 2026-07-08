@@ -1,16 +1,19 @@
 import { useContext } from "react";
 import { FoodContext } from "./FoodContext";
 import styles from "./Dashboard.module.css";
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
-  const { recipe } = useContext(FoodContext);
+  const { recipe, input } = useContext(FoodContext);
+  const filterProducts = recipe.filter((food) =>
+    food.name.toLowerCase().includes(input.toLowerCase()),
+  );
 
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Popular Recipes</h1>
-
       <div className={styles.grid}>
-        {recipe.map((item) => (
+        {filterProducts.map((item) => (
           <div className={styles.card} key={item.id}>
             <div className={styles.imageWrapper}>
               <img src={item.image} alt={item.name} className={styles.image} />
@@ -23,7 +26,9 @@ export const Dashboard = () => {
 
               <p className={styles.type}>🍽 {item.mealType.join(", ")}</p>
 
-              <button className={styles.button}>View Recipe</button>
+              <button className={styles.button}>
+                <Link to={`/itemDetails/${item.id}`}>View Recipe</Link>
+              </button>
             </div>
           </div>
         ))}

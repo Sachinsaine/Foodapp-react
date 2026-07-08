@@ -3,6 +3,7 @@ import { FoodContext } from "./FoodContext";
 
 export const ContextProvider = ({ children }) => {
   const [recipe, setRecipe] = useState([]);
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     async function getRecipe() {
@@ -17,5 +18,9 @@ export const ContextProvider = ({ children }) => {
     getRecipe();
   }, []);
 
-  return <FoodContext value={{ recipe, setRecipe }}>{children}</FoodContext>;
+  return (
+    <FoodContext.Provider value={{ recipe, setRecipe, input, setInput }}>
+      {children}
+    </FoodContext.Provider>
+  );
 };
