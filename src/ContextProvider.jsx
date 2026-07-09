@@ -4,6 +4,8 @@ import { FoodContext } from "./FoodContext";
 export const ContextProvider = ({ children }) => {
   const [recipe, setRecipe] = useState([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [wishList, setWishList] = useState([]);
 
   useEffect(() => {
     async function getRecipe() {
@@ -13,13 +15,17 @@ export const ContextProvider = ({ children }) => {
         setRecipe(recipeData.recipes);
       } catch (err) {
         console.log(err);
+      } finally {
+        setLoading(false);
       }
     }
     getRecipe();
   }, []);
 
   return (
-    <FoodContext.Provider value={{ recipe, setRecipe, input, setInput }}>
+    <FoodContext.Provider
+      value={{ recipe, input, setInput, loading, wishList, setWishList }}
+    >
       {children}
     </FoodContext.Provider>
   );

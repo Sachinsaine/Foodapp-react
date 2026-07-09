@@ -63,7 +63,7 @@
 
 .type {
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   font-size: 14px;
 }
 
@@ -83,7 +83,52 @@
   background: #e85d2b;
 }
 
-/* Responsive */
+/* .wishlist {
+  position: absolute;
+} */
+
+.wishCont {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.heartIcon {
+  font-size: 26px;
+  color: #ff5a5f;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.heartIcon:hover {
+  transform: scale(1.2);
+  color: red;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #ff6b35;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #ff5722;
+  color: white;
+}
+
+.button:visited {
+  color: white;
+}
 
 @media (max-width: 1400px) {
   .grid {

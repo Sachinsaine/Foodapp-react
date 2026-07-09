@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { FoodContext } from "./FoodContext";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 export const Dashboard = () => {
-  const { recipe, input } = useContext(FoodContext);
+  const { recipe, input, loading, setWishList } = useContext(FoodContext);
   const filterProducts = recipe.filter((food) =>
     food.name.toLowerCase().includes(input.toLowerCase()),
   );
@@ -13,25 +15,46 @@ export const Dashboard = () => {
     <div className={styles.container}>
       <h1 className={styles.heading}>Popular Recipes</h1>
       <div className={styles.grid}>
-        {filterProducts.map((item) => (
-          <div className={styles.card} key={item.id}>
-            <div className={styles.imageWrapper}>
-              <img src={item.image} alt={item.name} className={styles.image} />
+        {loading
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <div className={styles.card} key={index}>
+                <Skeleton variant="rectangular" width="100%" height={220} />
 
-              <span className={styles.rating}>⭐ {item.rating}</span>
-            </div>
+                <div className={styles.content}>
+                  <Skeleton variant="text" width="80%" height={30} />
+                  <Skeleton variant="text" width="50%" height={20} />
+                  <Skeleton variant="rounded" width="100%" height={40} />
+                </div>
+              </div>
+            ))
+          : filterProducts.map((item) => (
+              <div className={styles.card} key={item.id}>
+                <div className={styles.imageWrapper}>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className={styles.image}
+                  />
+                  <span className={styles.rating}>⭐ {item.rating}</span>
+                </div>
 
-            <div className={styles.content}>
-              <h3 className={styles.title}>{item.name}</h3>
+                <div className={styles.content}>
+                  <h3 className={styles.title}>{item.name}</h3>
 
-              <p className={styles.type}>🍽 {item.mealType.join(", ")}</p>
+                  <div className={styles.wishCont}>
+                    <IoIosHeartEmpty
+                      onClick={() => setWishList((pre) => [...pre, item])}
+                      className={styles.heartIcon}
+                    />
+                    <p className={styles.type}>🍽 {item.mealType.join(", ")}</p>
+                  </div>
 
-              <button className={styles.button}>
-                <Link to={`/itemDetails/${item.id}`}>View Recipe</Link>
-              </button>
-            </div>
-          </div>
-        ))}
+                  <button className={styles.button}>
+                    <Link to={`/itemDetails/${item.id}`}>View Recipe</Link>
+                  </button>
+                </div>
+              </div>
+            ))}
       </div>
     </div>
   );

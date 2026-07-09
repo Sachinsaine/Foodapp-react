@@ -10,7 +10,7 @@ export const ItemDetails = () => {
   const item = recipe.find((food) => food.id === Number(id));
 
   if (!item) {
-    return <h2>Loading...</h2>;
+    return <h2>Loading Recipes...</h2>;
   }
 
   return (

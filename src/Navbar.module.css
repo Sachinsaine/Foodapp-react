@@ -56,6 +56,14 @@
   color: #ff5722;
 }
 
+.wish{
+  position: relative;
+  cursor: pointer;
+  color: #333;
+}
+
+
+
 .cart {
   position: relative;
   cursor: pointer;

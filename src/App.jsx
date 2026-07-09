@@ -4,6 +4,7 @@ import { ContextProvider } from "./ContextProvider";
 import { Dashboard } from "./Dashboard";
 import { Navbar } from "./Navbar";
 import { ItemDetails } from "./ItemDetails";
+import { WishList } from "./WishList";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/itemDetails/:id" element={<ItemDetails />} />
+            <Route path="/wishlist" element={<WishList />} />
           </Routes>
         </ContextProvider>
       </BrowserRouter>
