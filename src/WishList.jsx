@@ -11,7 +11,6 @@ export const WishList = () => {
     const temp = wishList.filter((item) => item.id !== i);
     setWishList(temp);
   };
-  console.log(wishList);
 
   return (
     <div className={styles.container}>

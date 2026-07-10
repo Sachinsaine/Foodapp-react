@@ -96,7 +96,7 @@
 }
 
 .heartIcon {
-  font-size: 26px;
+  font-size: 22px;
   color: #ff5a5f;
   cursor: pointer;
   transition: 0.25s;
@@ -128,6 +128,21 @@
 
 .button:visited {
   color: white;
+}
+
+.wish {
+  font-size: 22px;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wish:hover {
+  transform: scale(1.15);
+}
+
+.active {
+  color: #ff6b35;
 }
 
 @media (max-width: 1400px) {

@@ -3,10 +3,11 @@ import { FoodContext } from "./FoodContext";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 
 export const Dashboard = () => {
-  const { recipe, input, loading, setWishList } = useContext(FoodContext);
+  const { recipe, input, loading, wishList, setWishList } =
+    useContext(FoodContext);
   const filterProducts = recipe.filter((food) =>
     food.name.toLowerCase().includes(input.toLowerCase()),
   );
@@ -27,34 +28,47 @@ export const Dashboard = () => {
                 </div>
               </div>
             ))
-          : filterProducts.map((item) => (
-              <div className={styles.card} key={item.id}>
-                <div className={styles.imageWrapper}>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className={styles.image}
-                  />
-                  <span className={styles.rating}>⭐ {item.rating}</span>
-                </div>
-
-                <div className={styles.content}>
-                  <h3 className={styles.title}>{item.name}</h3>
-
-                  <div className={styles.wishCont}>
-                    <IoIosHeartEmpty
-                      onClick={() => setWishList((pre) => [...pre, item])}
-                      className={styles.heartIcon}
+          : filterProducts.map((item) => {
+              const iswishlist = wishList.some((wish) => wish.id === item.id);
+              return (
+                <div className={styles.card} key={item.id}>
+                  <div className={styles.imageWrapper}>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className={styles.image}
                     />
-                    <p className={styles.type}>🍽 {item.mealType.join(", ")}</p>
+                    <span className={styles.rating}>⭐ {item.rating}</span>
                   </div>
 
-                  <button className={styles.button}>
-                    <Link to={`/itemDetails/${item.id}`}>View Recipe</Link>
-                  </button>
+                  <div className={styles.content}>
+                    <h3 className={styles.title}>{item.name}</h3>
+
+                    <div className={styles.wishCont}>
+                      {iswishlist ? (
+                        <IoIosHeart
+                          className={`${styles.wish} ${styles.active}`}
+                        />
+                      ) : (
+                        <IoIosHeartEmpty
+                          className={styles.wish}
+                          onClick={() => setWishList((pre) => [...pre, item])}
+                          className={styles.heartIcon}
+                        />
+                      )}
+
+                      <p className={styles.type}>
+                        🍽 {item.mealType.join(", ")}
+                      </p>
+                    </div>
+
+                    <button className={styles.button}>
+                      <Link to={`/itemDetails/${item.id}`}>View Recipe</Link>
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
       </div>
     </div>
   );
