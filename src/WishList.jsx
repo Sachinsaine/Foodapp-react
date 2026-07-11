@@ -3,6 +3,7 @@ import { FoodContext } from "./FoodContext";
 import { MdDelete } from "react-icons/md";
 import styles from "./WishList.module.css";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const WishList = () => {
   const { wishList, setWishList } = useContext(FoodContext);
@@ -52,7 +53,10 @@ export const WishList = () => {
 
                   <button
                     className={styles.deleteBtn}
-                    onClick={() => handleRemove(item.id)}
+                    onClick={() => {
+                      handleRemove(item.id);
+                      toast.error("Removed from the Wishlist");
+                    }}
                   >
                     <MdDelete size={24} />
                   </button>

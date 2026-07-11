@@ -4,6 +4,7 @@ import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import toast from "react-hot-toast";
 
 export const Dashboard = () => {
   const { recipe, input, loading, wishList, setWishList } =
@@ -30,6 +31,7 @@ export const Dashboard = () => {
             ))
           : filterProducts.map((item) => {
               const iswishlist = wishList.some((wish) => wish.id === item.id);
+
               return (
                 <div className={styles.card} key={item.id}>
                   <div className={styles.imageWrapper}>
@@ -48,12 +50,19 @@ export const Dashboard = () => {
                       {iswishlist ? (
                         <IoIosHeart
                           className={`${styles.wish} ${styles.active}`}
+                          onClick={() => {
+                            setWishList((prev) =>
+                              prev.filter((wish) => wish.id !== item.id),
+                            );
+                          }}
                         />
                       ) : (
                         <IoIosHeartEmpty
-                          className={styles.wish}
-                          onClick={() => setWishList((pre) => [...pre, item])}
-                          className={styles.heartIcon}
+                          className={`${styles.wish} ${styles.heartIcon}`}
+                          onClick={() => {
+                            setWishList((prev) => [...prev, item]);
+                            toast.success("Added to Wishlist");
+                          }}
                         />
                       )}
 

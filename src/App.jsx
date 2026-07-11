@@ -5,6 +5,7 @@ import { Dashboard } from "./Dashboard";
 import { Navbar } from "./Navbar";
 import { ItemDetails } from "./ItemDetails";
 import { WishList } from "./WishList";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/itemDetails/:id" element={<ItemDetails />} />
             <Route path="/wishlist" element={<WishList />} />
           </Routes>
+          <Toaster />
         </ContextProvider>
       </BrowserRouter>
     </>
